@@ -1,6 +1,9 @@
 package com.xiaojerrycat.android.criminalintent;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.xiaojerrycat.android.criminalintent.database.CrimeBaseHelper;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -12,9 +15,13 @@ public class CrimeLab {
 
     private static CrimeLab sCrimeLab;
 
-    private Map<UUID, Crime> mCrimes;
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
 
-    private CrimeLab(Context context) { mCrimes = new LinkedHashMap<>(); }
+    private CrimeLab(Context context) {
+        mContext = context.getApplicationContext();
+        mDatabase = new CrimeBaseHelper(mContext).getWritableDatabase();
+    }
 
     public static CrimeLab get(Context context) {
         if (sCrimeLab == null) { sCrimeLab = new CrimeLab(context); }
@@ -22,15 +29,15 @@ public class CrimeLab {
     }
 
     public List<Crime> getCrimes() {
-        return new ArrayList<>(mCrimes.values());
+        return new ArrayList<>();
     }
 
-    public Crime getCrime(UUID id) { return mCrimes.get(id); }
+    public Crime getCrime(UUID id) { return null; }
 
-    public void addCrime(Crime crime) { mCrimes.put(crime.getID(), crime); }
+    public void addCrime(Crime crime) {  }
 
     public void deleteCrime(UUID Id) {
         Crime crime = getCrime(Id);
-        if (crime != null) { mCrimes.remove(crime.getID()); }
+        if (crime != null) {  }
     }
 }

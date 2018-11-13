@@ -79,7 +79,7 @@ public class CrimeListFragment extends Fragment {
                 return true;
             case R.id.show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;
-                getActivity().invalidateOptionsMenu();
+                getActivity().invalidateOptionsMenu(); // 在运行时改变menu item的状态,必须调用invalidateOptionsMenu(),然后系统将调用onPrepareOptionsMenu()更改menu.
                 updateSubtitle();
                 return true;
             default: return super.onOptionsItemSelected(item);
